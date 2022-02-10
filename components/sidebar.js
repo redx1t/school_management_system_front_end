@@ -25,7 +25,7 @@ const Sidebar = (props) => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/students">
                   <span data-feather="file"></span>
                   Students
                 </a>
@@ -50,8 +50,6 @@ const Sidebar = (props) => {
                 </a>
               </li>
             </ul>
-
-            
           </div>
         </nav>
         </>

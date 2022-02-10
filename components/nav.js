@@ -4,7 +4,7 @@ import { Component } from "react"
 export default class Nav extends Component {
     render(){
         let logout;
-// console.log(this.props)
+console.log(this.props)
         if(this.props.user){
             logout = (          
       
@@ -23,7 +23,7 @@ export default class Nav extends Component {
         return (
         <>
         <nav className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{this.props.user.school.schoolname}</a>
+      <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{this.props.school.schoolname}</a>
       <ul className="navbar-nav px-3">
       {logout}
       </ul>
