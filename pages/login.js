@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import {useState} from 'react';
+import { BrowserRouter } from "react-router-dom";
 
+import { BACKEND_SERVER_URL } from '../constants/backend';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -9,6 +11,10 @@ const Login = () => {
     const submit = async (e) => {
         e.preventDefault();
         
+        await fetch(BACKEND_SERVER_URL + "login", {
+            method: "POST",
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        })
 
         const params = new URLSearchParams()
 params.append('username', username)
