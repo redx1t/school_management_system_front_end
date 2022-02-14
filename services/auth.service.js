@@ -27,7 +27,7 @@ const login = (username, password) => {
         };
         // console.log(config);
         // console.log(localStorage.getItem('access_token'))
-        axios.get("v1/users/user/get", config).then(
+        axios.get(BackendConstants.GET_USER, config).then(
           (res) => {
             console.log(res.data.data.user);
             localStorage.setItem("user", res.data.data.user);
@@ -40,24 +40,19 @@ const login = (username, password) => {
           }
         );
       }
-      return res.data;
+      return false;
     })
     .catch((err) => {
       console.log(err);
+      return false;
     });
 };
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
-const logout = () => {
-  localStorage.removeItem("user");
-  return axios.post("signout").then((response) => {
-    return response.data;
-  });
-};
+
 const AuthService = {
   login,
-  logout,
   getCurrentUser,
 };
 

@@ -16,8 +16,14 @@ const Login = () => {
 
     AuthService.login(username, password).then(
       (response) => {
-        console.log(response);
-        //router.push("/");
+        // console.log(response);
+        if (response) {
+          router.push("/");
+        } else {
+          setLoading(false);
+          setMessage("We are unable to authenicate you. Please try again");
+        }
+        //
       },
       (error) => {
         const resMessage =

@@ -6,7 +6,7 @@ const PARENT = version + "parents/";
 
 // USER URLS
 export const GET_USER = USER + "user/get";
-export const ALL_USER = USER + "pages/";
+export const ALL_USERS = USER + "pages";
 export const SAVE_USER = USER + "save";
 export const SAVE_ROLE = USER + "role/save";
 export const ADD_ROLE_TO_USER = USER + "role/addtouser";
