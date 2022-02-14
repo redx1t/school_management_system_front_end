@@ -3,17 +3,18 @@
 import axios from "axios";
 import * as BackendConstants from "../constants/backend";
 axios.defaults.baseURL = BackendConstants.BACKEND_SERVER_URL;
-const config = {
-  headers: {
-    Authorization: "Bearer " + localStorage.getItem("access_token"),
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-};
 const fetchClassrooms = () => {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("access_token"),
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
   return axios.get(BackendConstants.ALL_CLASSROOMS, config).then(
     (res) => {
-      if (res.data.classrooms) {
-        return res.data.classrooms;
+      console.log(res);
+      if (res.data.data.classrooms) {
+        return res.data.data.classrooms;
       }
       return null;
       // console.log(res, res.data.data.user)
@@ -31,5 +32,5 @@ const logout = () => {
     return response.data;
   });
 };
-const ApiService = [fetchClassrooms, logout];
+const ApiService = { fetchClassrooms, logout };
 export default ApiService;
