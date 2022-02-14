@@ -10,18 +10,18 @@ const Home = () => {
   const [isLoading, setLoading] = useState(false);
   CheckAuth();
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
   }, []);
 
   if (isLoading) return <p>Loading...</p>;
-  if (!classrooms) return <p>No profile data</p>;
-
-  return (
-    <ClassRoomTable>
-      {classroooms.map((classroom) => (
-        <ClassRoomRow key={classroom.id} classroom={classroom} />
-      ))}
-    </ClassRoomTable>
-  );
+  if (!classrooms) return <p>No classroom data</p>;
+  if (classrooms)
+    return (
+      <ClassRoomTable>
+        {classroooms.map((classroom) => (
+          <ClassRoomRow key={classroom.id} classroom={classroom} />
+        ))}
+      </ClassRoomTable>
+    );
 };
 export default Home;

@@ -7,6 +7,7 @@ const CheckAuth = () => {
       router.push("/login");
     }
   }, []);
+  return true;
 };
 
 export default CheckAuth;

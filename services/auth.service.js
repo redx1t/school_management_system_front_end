@@ -15,6 +15,7 @@ const login = (username, password) => {
   return axios
     .post("login", params, config)
     .then((res) => {
+      console.log(res.data.access_token);
       if (res.data.access_token) {
         localStorage.setItem("access_token", res.data.access_token);
         localStorage.setItem("refresh_token", res.data.refresh_token);
@@ -31,6 +32,7 @@ const login = (username, password) => {
           (res) => {
             console.log(res.data.data.user);
             localStorage.setItem("user", res.data.data.user);
+            //console.log("her");
             return true;
             // console.log(res, res.data.data.user)
           },
@@ -39,8 +41,9 @@ const login = (username, password) => {
             return false;
           }
         );
+      } else {
+        return false;
       }
-      return false;
     })
     .catch((err) => {
       console.log(err);

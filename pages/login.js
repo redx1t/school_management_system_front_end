@@ -14,28 +14,12 @@ const Login = () => {
     setMessage("");
     setLoading(true);
 
-    AuthService.login(username, password).then(
-      (response) => {
-        // console.log(response);
-        if (response) {
-          router.push("/");
-        } else {
-          setLoading(false);
-          setMessage("We are unable to authenicate you. Please try again");
-        }
-        //
-      },
-      (error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        setLoading(false);
-        setMessage(resMessage);
-      }
-    );
+    if (AuthService.login(username, password)) {
+      router.push("/");
+    } else {
+      setLoading(false);
+      setMessage("We are unable to authenicate you. Please try again");
+    }
   };
   return (
     <>
