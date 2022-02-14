@@ -1,69 +1,83 @@
-import { useRouter } from 'next/router';
-import axios from 'axios';
-import {useState} from 'react';
-import { BrowserRouter } from "react-router-dom";
-
-import { BACKEND_SERVER_URL } from '../constants/backend';
+import { useRouter } from "next/router";
+import { useState } from "react";
+import AuthService from "../services/auth.service";
 const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const router = useRouter();
-    const submit = async (e) => {
-        e.preventDefault();
-        
-        await fetch(BACKEND_SERVER_URL + "login", {
-            method: "POST",
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        })
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-        const params = new URLSearchParams()
-params.append('username', username)
-params.append('password', password)
+  const router = useRouter();
+  const submit = async (e) => {
+    e.preventDefault();
 
-const config = {
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-}
+    setMessage("");
+    setLoading(true);
 
-        axios.post("login", params, config).then(res => {
-            console.log(res);
+    AuthService.login(username, password).then(
+      (response) => {
+        console.log(response);
+        //router.push("/");
+      },
+      (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        setLoading(false);
+        setMessage(resMessage);
+      }
+    );
+  };
+  return (
+    <>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <form className="form-signin" onSubmit={submit}>
+              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+              <input
+                type="name"
+                id="inputUsername"
+                className="form-control"
+                placeholder="Username"
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+              <br />
+              <input
+                type="password"
+                id="inputPassword"
+                className="form-control"
+                placeholder="Password"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                className="btn btn-lg btn-primary btn-block"
+                type="submit"
+                disabled={loading}
+              >
+                {loading && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                )}
+                Sign in
+              </button>
+            </form>
+            {message && (
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {message}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
-            localStorage.setItem('access_token', res.data.access_token)
-            localStorage.setItem('refresh_token', res.data.refresh_token)
-               const config = {
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                }
-                // console.log(config);
-                // console.log(localStorage.getItem('access_token'))
-                axios.get('v1/users/user/get', config).then(
-                    res => {
-                      console.log(res.data.data.user)
-                         localStorage.setItem('user', res.data.data.user);
-                        // console.log(res, res.data.data.user)
-                    }, err => {
-                        console.log(err)
-                    }
-                )
-            
-
-        }).catch(err => {console.log(err)})
-        
-    }
-    return ( 
-        <>
-        <form className="form-signin" onSubmit={submit}>
-            <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <input type="name" id="inputUsername" className="form-control" placeholder="Username" onChange={e => setUsername(e.target.value)} required/>
-            <br/>
-            <input type="password" id="inputPassword" className="form-control" placeholder="Password" required  onChange={e => setPassword(e.target.value)}/>
-            <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
-        </>
-     );
-}
- 
 export default Login;
