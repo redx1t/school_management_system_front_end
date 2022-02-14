@@ -5,20 +5,22 @@ import CheckAuth from "../services/checkauth.service";
 const Nav = () => {
   let logout;
   let schoolname = "School Management System";
+  let checkauth = CheckAuth();
+  console.log(checkauth);
   //console.log(this.props)
-  if (CheckAuth()) {
+  if (checkauth) {
     logout = (
-      <li className="nav-item btn btn-danger">
-        <Link
+      <li className="nav-item">
+        <button
+          className="btn btn-danger"
           onClick={(e) => {
             e.preventDefault();
             localStorage.clear();
+            window.location.reload();
           }}
-          className="nav-link"
-          href="/login"
         >
           Logout
-        </Link>
+        </button>
       </li>
     );
   } else {

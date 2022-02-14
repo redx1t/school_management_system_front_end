@@ -18,5 +18,7 @@ export const SPECIFIC_CLASSROOM = TEACHER + "classroom/get";
 export const STUDENTS_IN_A_CLASSROOM = TEACHER + "classroom/students";
 
 // PARENT URLS
-export const ALL_STUDENTS_BY_PARENT = PARENT + "/students/parent";
-export const GET_SPECIFIC_STUDENT = PARENT + "/student";
+export const ALL_STUDENTS_BY_PARENT = PARENT + "students/parent";
+export const GET_SPECIFIC_STUDENT = PARENT + "student";
+export const GET_SPECIFIC_STUDENT_EXAM_RESULTS =
+  PARENT + "exam_results/student";

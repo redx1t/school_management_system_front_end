@@ -5,6 +5,7 @@ const CheckAuth = () => {
   useEffect(() => {
     if (!localStorage.getItem("access_token")) {
       router.push("/login");
+      return false;
     }
   }, []);
   return true;
